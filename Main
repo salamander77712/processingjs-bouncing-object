@@ -1,0 +1,68 @@
+{
+background(0,0,0);
+var baby=function(config){
+    this.x=config.x;
+    this.y=config.y;
+    this.s=config.s;
+    this.a=config.a;
+    this.j=config.j;
+};
+baby.prototype.draw=function(){
+    image(getImage("creatures/BabyWinston"),this.x,this.y,20,20);
+};
+baby.prototype.fall=function(){
+    this.y+=this.a;
+    this.a+=this.j;
+};
+baby.prototype.checkbounce=function(){
+    return this.y>380;
+};
+baby.prototype.bounce=function(){
+    if(this.checkbounce()){
+        this.a=-this.a*0.99;
+    }
+};
+baby.prototype.side=function(){
+    this.x+=this.s;
+};
+baby.prototype.checkbounceright=function(){
+    return this.x>380;
+};
+baby.prototype.checkbounceleft=function(){
+    return this.x<0;
+};
+baby.prototype.bounceright=function(){
+    if(this.checkbounceright()){
+        this.s=-this.s*0.99;
+    }
+};
+baby.prototype.bounceleft=function(){
+    if(this.checkbounceleft()){
+        this.s=-this.s*0.99;
+    }
+};
+baby.prototype.all=function(){
+    this.draw();
+    this.fall();
+    this.side();
+    this.bounce();
+    this.bounceleft();
+    this.bounceright();
+};
+var s=0;
+mouseClicked=function(){
+    s=random(3,9);
+var b1=new baby({
+    x:mouseX,
+    y:mouseY,
+    s:s,
+    a:0,
+    j:0.25
+});
+draw= function() {
+    background(0,0,0);
+    b1.all();
+    fill(255,255,255);
+};
+};
+}
